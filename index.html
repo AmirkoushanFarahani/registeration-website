@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b4c7a" />
+    <title>سامانه ثبت‌نام دانش‌آموزان</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="صفحه اصلی سامانه">
+        <span class="brand-mark">آ</span>
+        <span>سامانه دانش‌آموزی<br /><strong>ایران</strong></span>
+      </a>
+      <nav aria-label="ناوبری اصلی">
+        <a href="#guide">راهنمای ثبت‌نام</a>
+        <a href="#support">پشتیبانی</a>
+      </nav>
+      <button class="login-button" type="button">ورود به پنل</button>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">سال تحصیلی ۱۴۰۵–۱۴۰۶</p>
+          <h1>شروع یک مسیر روشن،<br />از همین‌جا</h1>
+          <p>فرم پیش‌ثبت‌نام دانش‌آموزان در سراسر ایران را در چند دقیقه، ساده و مطمئن تکمیل کنید.</p>
+          <div class="hero-notes">
+            <span>✓ ثبت‌نام آنلاین</span><span>✓ پاسخ‌گویی سراسری</span><span>✓ اطلاعات محفوظ</span>
+          </div>
+        </div>
+        <aside class="hero-card" aria-label="وضعیت ثبت‌نام">
+          <span class="live-dot"></span>
+          <p>ثبت‌نام فعال است</p>
+          <strong>تا ۳۱ شهریور ۱۴۰۵</strong>
+          <small>پس از ثبت درخواست، کد پیگیری دریافت می‌کنید.</small>
+        </aside>
+      </section>
+
+      <section class="form-section" aria-labelledby="form-title">
+        <div class="section-heading">
+          <p class="eyebrow">فرم پیش‌ثبت‌نام</p>
+          <h2 id="form-title">اطلاعات دانش‌آموز</h2>
+          <p>فیلدهای ستاره‌دار الزامی هستند.</p>
+        </div>
+        <form id="registration-form" novalidate>
+          <fieldset>
+            <legend>مشخصات فردی</legend>
+            <div class="form-grid">
+              <label>نام <em>*</em><input name="firstName" autocomplete="given-name" required /></label>
+              <label>نام خانوادگی <em>*</em><input name="lastName" autocomplete="family-name" required /></label>
+              <label>کد ملی <em>*</em><input name="nationalId" inputmode="numeric" maxlength="10" placeholder="۱۰ رقم" required /></label>
+              <label>تاریخ تولد <em>*</em><input name="birthDate" type="date" required /></label>
+              <label>جنسیت <em>*</em><select name="gender" required><option value="">انتخاب کنید</option><option>دختر</option><option>پسر</option></select></label>
+              <label>پایه تحصیلی مورد درخواست <em>*</em><select name="grade" required><option value="">انتخاب کنید</option><option>اول ابتدایی</option><option>دوم تا ششم ابتدایی</option><option>هفتم تا نهم متوسطه اول</option><option>دهم تا دوازدهم متوسطه دوم</option></select></label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>محل سکونت و ارتباط</legend>
+            <div class="form-grid">
+              <label>استان <em>*</em><select name="province" required><option value="">انتخاب استان</option><option>آذربایجان شرقی</option><option>آذربایجان غربی</option><option>اردبیل</option><option>اصفهان</option><option>البرز</option><option>ایلام</option><option>بوشهر</option><option>تهران</option><option>چهارمحال و بختیاری</option><option>خراسان جنوبی</option><option>خراسان رضوی</option><option>خراسان شمالی</option><option>خوزستان</option><option>زنجان</option><option>سمنان</option><option>سیستان و بلوچستان</option><option>فارس</option><option>قزوین</option><option>قم</option><option>کردستان</option><option>کرمان</option><option>کرمانشاه</option><option>کهگیلویه و بویراحمد</option><option>گلستان</option><option>گیلان</option><option>لرستان</option><option>مازندران</option><option>مرکزی</option><option>هرمزگان</option><option>همدان</option><option>یزد</option></select></label>
+              <label>شهر <em>*</em><input name="city" required /></label>
+              <label>شماره همراه ولی <em>*</em><input name="parentPhone" type="tel" inputmode="tel" placeholder="۰۹۱۲۱۲۳۴۵۶۷" required /></label>
+              <label>ایمیل <span class="optional">(اختیاری)</span><input name="email" type="email" inputmode="email" placeholder="name@example.com" /></label>
+              <label class="wide">نشانی محل سکونت <em>*</em><input name="address" autocomplete="street-address" required /></label>
+            </div>
+          </fieldset>
+
+          <label class="consent"><input name="consent" type="checkbox" required /><span>صحت اطلاعات واردشده را تأیید می‌کنم و با <a href="#privacy">شرایط و حریم خصوصی</a> موافقم. <em>*</em></span></label>
+          <p id="form-error" class="form-error" role="alert" hidden></p>
+          <button class="submit-button" type="submit">ثبت درخواست و دریافت کد پیگیری <span>←</span></button>
+        </form>
+        <section id="success" class="success" hidden aria-live="polite">
+          <span>✓</span><div><h3>درخواست شما ثبت شد</h3><p>کد پیگیری شما: <strong id="tracking-code"></strong></p></div>
+        </section>
+      </section>
+
+      <section class="guide" id="guide">
+        <div><p class="eyebrow">روند ثبت‌نام</p><h2>سه گام تا تکمیل درخواست</h2></div>
+        <ol><li><b>۱</b><span>فرم را با اطلاعات دقیق تکمیل کنید.</span></li><li><b>۲</b><span>کد پیگیری را دریافت و نگهداری کنید.</span></li><li><b>۳</b><span>نتیجه را از پنل پیگیری مشاهده کنید.</span></li></ol>
+      </section>
+    </main>
+    <footer id="support"><span>سامانه یکپارچه ثبت‌نام دانش‌آموزان ایران</span><span>پشتیبانی: ۰۲۱-۹۱۰۰-۰۰۰۰</span><span>© ۱۴۰۵</span></footer>
+    <script src="app.js"></script>
+  </body>
+</html>
