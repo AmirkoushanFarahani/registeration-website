@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="form-additions.css" />
   </head>
   <body>
     <header class="site-header">
@@ -20,7 +21,7 @@
         <a href="#guide">راهنمای ثبت‌نام</a>
         <a href="#support">پشتیبانی</a>
       </nav>
-      <button class="login-button" type="button">ورود به پنل</button>
+      <a class="login-button" href="login.html">ورود به پنل</a>
     </header>
 
     <main id="top">
@@ -37,7 +38,7 @@
           <span class="live-dot"></span>
           <p>ثبت‌نام فعال است</p>
           <strong>تا ۳۱ شهریور ۱۴۰۵</strong>
-          <small>پس از ثبت درخواست، کد پیگیری دریافت می‌کنید.</small>
+          <small id="jalali-timestamp">در حال دریافت تاریخ و ساعت…</small>
         </aside>
       </section>
 
@@ -54,8 +55,8 @@
               <label>نام <em>*</em><input name="firstName" autocomplete="given-name" required /></label>
               <label>نام خانوادگی <em>*</em><input name="lastName" autocomplete="family-name" required /></label>
               <label>کد ملی <em>*</em><input name="nationalId" inputmode="numeric" maxlength="10" placeholder="۱۰ رقم" required /></label>
-              <label>تاریخ تولد <em>*</em><input name="birthDate" type="date" required /></label>
-              <label>جنسیت <em>*</em><select name="gender" required><option value="">انتخاب کنید</option><option>دختر</option><option>پسر</option></select></label>
+              <div class="date-field"><span>تاریخ تولد (هجری شمسی) <em>*</em></span><div class="date-selects"><select name="birthYear" aria-label="سال تولد" required><option value="">سال</option></select><select name="birthMonth" aria-label="ماه تولد" required><option value="">ماه</option></select><select name="birthDay" aria-label="روز تولد" required><option value="">روز</option></select></div></div>
+              <label>جنسیت <em>*</em><select name="gender" required><option value="">انتخاب کنید</option><option>زن</option><option>مرد</option></select></label>
               <label>پایه تحصیلی مورد درخواست <em>*</em><select name="grade" required><option value="">انتخاب کنید</option><option>اول ابتدایی</option><option>دوم تا ششم ابتدایی</option><option>هفتم تا نهم متوسطه اول</option><option>دهم تا دوازدهم متوسطه دوم</option></select></label>
             </div>
           </fieldset>
@@ -64,8 +65,8 @@
             <legend>محل سکونت و ارتباط</legend>
             <div class="form-grid">
               <label>استان <em>*</em><select name="province" required><option value="">انتخاب استان</option><option>آذربایجان شرقی</option><option>آذربایجان غربی</option><option>اردبیل</option><option>اصفهان</option><option>البرز</option><option>ایلام</option><option>بوشهر</option><option>تهران</option><option>چهارمحال و بختیاری</option><option>خراسان جنوبی</option><option>خراسان رضوی</option><option>خراسان شمالی</option><option>خوزستان</option><option>زنجان</option><option>سمنان</option><option>سیستان و بلوچستان</option><option>فارس</option><option>قزوین</option><option>قم</option><option>کردستان</option><option>کرمان</option><option>کرمانشاه</option><option>کهگیلویه و بویراحمد</option><option>گلستان</option><option>گیلان</option><option>لرستان</option><option>مازندران</option><option>مرکزی</option><option>هرمزگان</option><option>همدان</option><option>یزد</option></select></label>
-              <label>شهر <em>*</em><input name="city" required /></label>
-              <label>شماره همراه ولی <em>*</em><input name="parentPhone" type="tel" inputmode="tel" placeholder="۰۹۱۲۱۲۳۴۵۶۷" required /></label>
+              <label>شهر <em>*</em><select name="city" required disabled><option value="">ابتدا استان را انتخاب کنید</option></select></label>
+              <label>شماره همراه ولی <span class="optional">(اختیاری)</span><input name="parentPhone" type="tel" inputmode="tel" placeholder="۰۹۱۲۱۲۳۴۵۶۷" /></label>
               <label>ایمیل <span class="optional">(اختیاری)</span><input name="email" type="email" inputmode="email" placeholder="name@example.com" /></label>
               <label class="wide">نشانی محل سکونت <em>*</em><input name="address" autocomplete="street-address" required /></label>
             </div>

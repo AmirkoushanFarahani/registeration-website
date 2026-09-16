@@ -1,44 +1,15 @@
 const form = document.querySelector('#registration-form');
 const error = document.querySelector('#form-error');
 const success = document.querySelector('#success');
-
-function toEnglishDigits(value) {
-  return value.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d));
-}
-
-function validNationalId(value) {
-  const code = toEnglishDigits(value).replace(/\D/g, '');
-  if (!/^\d{10}$/.test(code) || /^(\d)\1{9}$/.test(code)) return false;
-  const total = [...code.slice(0, 9)].reduce((sum, digit, index) => sum + Number(digit) * (10 - index), 0);
-  const check = total % 11 < 2 ? total % 11 : 11 - (total % 11);
-  return check === Number(code[9]);
-}
-
-form.addEventListener('submit', event => {
-  event.preventDefault();
-  error.hidden = true;
-  const data = new FormData(form);
-  const phone = toEnglishDigits(data.get('parentPhone')).replace(/\D/g, '');
-  if (!form.checkValidity()) {
-    error.textContent = 'لطفاً همه فیلدهای الزامی را تکمیل کنید.';
-    error.hidden = false;
-    form.querySelector(':invalid').focus();
-    return;
-  }
-  if (!validNationalId(data.get('nationalId'))) {
-    error.textContent = 'کد ملی واردشده معتبر نیست.';
-    error.hidden = false;
-    form.elements.nationalId.focus();
-    return;
-  }
-  if (!/^09\d{9}$/.test(phone)) {
-    error.textContent = 'شماره همراه ولی باید با ۰۹ شروع شود و ۱۱ رقم باشد.';
-    error.hidden = false;
-    form.elements.parentPhone.focus();
-    return;
-  }
-  document.querySelector('#tracking-code').textContent = `IR-${Date.now().toString().slice(-8)}`;
-  success.hidden = false;
-  success.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  form.reset();
-});
+const provinceSelect = form.elements.province;
+const citySelect = form.elements.city;
+const cities = {
+  'آذربایجان شرقی':['تبریز','مراغه','مرند','اهر','میانه'],'آذربایجان غربی':['ارومیه','خوی','مهاباد','میاندوآب','بوکان'],'اردبیل':['اردبیل','مشگین‌شهر','خلخال','پارس‌آباد'],'اصفهان':['اصفهان','کاشان','خمینی‌شهر','نجف‌آباد','شاهین‌شهر'],'البرز':['کرج','فردیس','نظرآباد','هشتگرد'],'ایلام':['ایلام','دهلران','مهران','ایوان'],'بوشهر':['بوشهر','برازجان','گناوه','کنگان'],'تهران':['تهران','ری','شهریار','اسلامشهر','ورامین'],'چهارمحال و بختیاری':['شهرکرد','بروجن','فارسان','لردگان'],'خراسان جنوبی':['بیرجند','قائن','فردوس','طبس'],'خراسان رضوی':['مشهد','نیشابور','سبزوار','تربت حیدریه','کاشمر'],'خراسان شمالی':['بجنورد','شیروان','اسفراین','جاجرم'],'خوزستان':['اهواز','دزفول','آبادان','خرمشهر','ماهشهر'],'زنجان':['زنجان','ابهر','خرمدره','قیدار'],'سمنان':['سمنان','شاهرود','دامغان','گرمسار'],'سیستان و بلوچستان':['زاهدان','چابهار','ایرانشهر','زابل'],'فارس':['شیراز','مرودشت','جهرم','فسا','کازرون'],'قزوین':['قزوین','تاکستان','آبیک','الوند'],'قم':['قم','سلفچگان','جعفریه'],'کردستان':['سنندج','سقز','مریوان','بانه'],'کرمان':['کرمان','سیرجان','رفسنجان','جیرفت','بم'],'کرمانشاه':['کرمانشاه','اسلام‌آباد غرب','سنقر','هرسین'],'کهگیلویه و بویراحمد':['یاسوج','دهدشت','گچساران'],'گلستان':['گرگان','گنبدکاووس','علی‌آباد کتول','آق‌قلا'],'گیلان':['رشت','بندر انزلی','لاهیجان','لنگرود'],'لرستان':['خرم‌آباد','بروجرد','دورود','الیگودرز'],'مازندران':['ساری','بابل','آمل','قائم‌شهر','تنکابن'],'مرکزی':['اراک','ساوه','خمین','محلات'],'هرمزگان':['بندرعباس','میناب','قشم','کیش'],'همدان':['همدان','ملایر','نهاوند','تویسرکان'],'یزد':['یزد','میبد','اردکان','بافق']
+};
+function toEnglishDigits(value){return String(value).replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d));}
+function validNationalId(value){const code=toEnglishDigits(value).replace(/\D/g,'');if(!/^\d{10}$/.test(code)||/^(\d)\1{9}$/.test(code))return false;const total=[...code.slice(0,9)].reduce((sum,digit,index)=>sum+Number(digit)*(10-index),0);const check=total%11<2?total%11:11-(total%11);return check===Number(code[9]);}
+function populateBirthDate(){const year=Number(toEnglishDigits(new Intl.DateTimeFormat('fa-IR-u-ca-persian',{year:'numeric'}).format(new Date())));for(let y=year;y>=1300;y--)form.elements.birthYear.add(new Option(y.toLocaleString('fa-IR'),y));for(let m=1;m<=12;m++)form.elements.birthMonth.add(new Option(m.toLocaleString('fa-IR'),m));for(let d=1;d<=31;d++)form.elements.birthDay.add(new Option(d.toLocaleString('fa-IR'),d));}
+function updateTimestamp(){document.querySelector('#jalali-timestamp').textContent=new Intl.DateTimeFormat('fa-IR-u-ca-persian',{dateStyle:'full',timeStyle:'short'}).format(new Date());}
+provinceSelect.addEventListener('change',()=>{const list=cities[provinceSelect.value]||[];citySelect.innerHTML='<option value="">شهر را انتخاب کنید</option>';list.forEach(city=>citySelect.add(new Option(city,city)));citySelect.disabled=!list.length;});
+populateBirthDate();updateTimestamp();setInterval(updateTimestamp,30000);
+form.addEventListener('submit',event=>{event.preventDefault();error.hidden=true;const data=new FormData(form);const phone=toEnglishDigits(data.get('parentPhone')).replace(/\D/g,'');if(!form.checkValidity()){error.textContent='لطفاً همه فیلدهای الزامی را تکمیل کنید.';error.hidden=false;form.querySelector(':invalid').focus();return;}if(!validNationalId(data.get('nationalId'))){error.textContent='کد ملی واردشده معتبر نیست.';error.hidden=false;form.elements.nationalId.focus();return;}if(phone&&!/^09\d{9}$/.test(phone)){error.textContent='شماره همراه ولی باید با ۰۹ شروع شود و ۱۱ رقم باشد.';error.hidden=false;form.elements.parentPhone.focus();return;}document.querySelector('#tracking-code').textContent=`IR-${Date.now().toString().slice(-8)}`;success.hidden=false;success.scrollIntoView({behavior:'smooth',block:'center'});form.reset();citySelect.disabled=true;citySelect.innerHTML='<option value="">ابتدا استان را انتخاب کنید</option>';});
