@@ -33,3 +33,7 @@ py -m venv .venv
 ```powershell
 .\.venv\Scripts\python.exe manage.py test
 ```
+
+## فهرست نمایندگی‌های قلم‌چی
+
+داده‌های عمومی نمایندگی‌های قلم‌چی در پوشه `data/` به صورت SQLite، CSV و JSON قرار دارند. جزئیات و روش به‌روزرسانی در `data/README.md` آمده است.
