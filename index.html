@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="fa" dir="rtl">
   <head>
@@ -8,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="form-additions.css" />
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+    <link rel="stylesheet" href="{% static 'form-additions.css' %}" />
   </head>
   <body>
     <header class="site-header">
@@ -87,6 +88,6 @@
       </section>
     </main>
     <footer id="support"><span>سامانه یکپارچه ثبت‌نام دانش‌آموزان ایران</span><span>پشتیبانی: ۰۲۱-۹۱۰۰-۰۰۰۰</span><span>© ۱۴۰۵</span></footer>
-    <script src="app.js"></script>
+    <script src="{% static 'app.js' %}"></script>
   </body>
 </html>
