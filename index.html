@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'styles.css' %}" />
     <link rel="stylesheet" href="{% static 'form-additions.css' %}" />
+    <link rel="stylesheet" href="{% static 'agency-additions.css' %}" />
   </head>
   <body>
     <header class="site-header">
@@ -72,6 +73,12 @@
               <label class="wide">نشانی محل سکونت <em>*</em><input name="address" autocomplete="street-address" required /></label>
             </div>
           </fieldset>
+
+          <section id="agencies-section" class="agencies-section" hidden aria-live="polite">
+            <div class="agency-heading"><div><p class="eyebrow">انتخاب آموزشگاه</p><h3>آموزشگاه‌های شهر شما</h3></div><span id="agency-count"></span></div>
+            <p id="agency-message" class="agency-message">در حال دریافت فهرست آموزشگاه‌ها…</p>
+            <label id="agency-select-wrap" hidden>آموزشگاه موردنظر <em>*</em><select name="agencyId" id="agency-select"><option value="">آموزشگاه را انتخاب کنید</option></select></label>
+          </section>
 
           <label class="consent"><input name="consent" type="checkbox" required /><span>صحت اطلاعات واردشده را تأیید می‌کنم و با <a href="#privacy">شرایط و حریم خصوصی</a> موافقم. <em>*</em></span></label>
           <p id="form-error" class="form-error" role="alert" hidden></p>

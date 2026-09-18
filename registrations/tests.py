@@ -1,5 +1,6 @@
 from django.test import TestCase
 from rest_framework.test import APIClient
+from .models import KanoonAgency
 
 class RegistrationApiTests(TestCase):
     def setUp(self):
@@ -21,3 +22,14 @@ class RegistrationApiTests(TestCase):
         url = f"/api/v1/registrations/{created.data['tracking_code']}/"
         self.assertEqual(self.client.get(url).status_code, 400)
         self.assertEqual(self.client.get(url, {'national_id': '1234567891'}).status_code, 200)
+
+    def test_agencies_can_be_filtered_by_province_and_city(self):
+        KanoonAgency.objects.create(
+            province='تهران', city='تهران', office_name='تهران آزمون', address='تهران',
+            phone_numbers='02100000000', source_url='https://www.kanoon.ir/City/Agencies?state=1',
+            retrieved_at_utc='2026-09-18T00:00:00+00:00',
+        )
+        response = self.client.get('/api/v1/agencies/', {'province': 'تهران', 'city': 'تهران'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(response.data[0]['office_name'], 'تهران آزمون')

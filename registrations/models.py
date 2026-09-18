@@ -1,6 +1,24 @@
 import uuid
 from django.db import models
 
+class KanoonAgency(models.Model):
+    province = models.CharField(max_length=80)
+    city = models.CharField(max_length=120)
+    office_name = models.CharField(max_length=160)
+    address = models.TextField(blank=True)
+    phone_numbers = models.CharField(max_length=300, blank=True)
+    source_url = models.URLField()
+    retrieved_at_utc = models.DateTimeField()
+
+    class Meta:
+        ordering = ('province', 'city', 'office_name')
+        constraints = [models.UniqueConstraint(fields=('province', 'office_name', 'source_url'), name='unique_kanoon_agency')]
+        verbose_name = 'آموزشگاه قلم‌چی'
+        verbose_name_plural = 'آموزشگاه‌های قلم‌چی'
+
+    def __str__(self):
+        return f'{self.province} | {self.office_name}'
+
 class StudentRegistration(models.Model):
     class Gender(models.TextChoices):
         WOMAN = 'woman', 'زن'
@@ -16,6 +34,7 @@ class StudentRegistration(models.Model):
     grade = models.CharField(max_length=100)
     province = models.CharField(max_length=80)
     city = models.CharField(max_length=80)
+    agency = models.ForeignKey(KanoonAgency, on_delete=models.SET_NULL, null=True, blank=True, related_name='registrations')
     parent_phone = models.CharField(max_length=11, blank=True)
     email = models.EmailField(blank=True)
     address = models.TextField()
